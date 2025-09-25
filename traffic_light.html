@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Traffic Light</title>
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+</head>
+<body class="bg-gray-900 flex justify-center items-center h-screen">
+  
+  <!-- Traffic Light Housing -->
+  <div id="trafficLight" 
+       class="bg-gray-800 rounded-3xl p-6 flex flex-col items-center gap-6 shadow-2xl w-32 border-4 border-gray-700 cursor-pointer select-none">
+    
+    <!-- Red Light -->
+    <div id="red" class="w-20 h-20 bg-red-900 rounded-full shadow-inner transition-all duration-500"></div>
+    
+    <!-- Yellow Light -->
+    <div id="yellow" class="w-20 h-20 bg-yellow-900 rounded-full shadow-inner transition-all duration-500"></div>
+    
+    <!-- Green Light -->
+    <div id="green" class="w-20 h-20 bg-green-900 rounded-full shadow-inner transition-all duration-500"></div>
+  
+  </div>
+
+  <script>
+    const lights = [
+      { id: "red", on: "bg-red-600 shadow-red-500 shadow-2xl", off: "bg-red-900" },
+      { id: "yellow", on: "bg-yellow-400 shadow-yellow-400 shadow-2xl", off: "bg-yellow-900" },
+      { id: "green", on: "bg-green-600 shadow-green-500 shadow-2xl", off: "bg-green-900" }
+    ];
+
+    let index = 0;
+
+    function updateLights() {
+      lights.forEach((light, i) => {
+        const el = document.getElementById(light.id);
+        if (i === index) {
+          el.className = `w-20 h-20 rounded-full transition-all duration-500 ${light.on}`;
+        } else {
+          el.className = `w-20 h-20 rounded-full shadow-inner transition-all duration-500 ${light.off}`;
+        }
+      });
+    }
+
+    // Start with red light
+    updateLights();
+
+    // Change light on click or touch
+    document.getElementById("trafficLight").addEventListener("click", () => {
+      index = (index + 1) % lights.length;
+      updateLights();
+    });
+
+    document.getElementById("trafficLight").addEventListener("touchstart", () => {
+      index = (index + 1) % lights.length;
+      updateLights();
+    });
+  </script>
+</body>
+</html>
